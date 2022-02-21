@@ -18,6 +18,7 @@ _Portal for criation and dissemination of Sporting Events_
 - Maven 4.0.0
 - Swagger v3
 - PostgreSQL 42.3.1
+- Log4j
 
 ## Installation
 
@@ -31,8 +32,12 @@ You can choose to run the script with the database's DDL in the script folder or
 
 ## Tests
 
-To run the tests, just access the test files in the package "src/test/java/" and run with "Junit Test".
+To run the tests, just access the test files in the package "src/test/java/" and run with "JUnit Test".
 
 ## Swagger
 
 To access the api documentation, just run the project and access '/portal-docs/swagger-ui/index.html'.
+
+## Logs
+
+File where logs will be saved "/Logs/portal-sports-event.log".
