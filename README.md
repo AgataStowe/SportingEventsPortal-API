@@ -1,8 +1,9 @@
 # Sporting Events Portal 
-## _Portal for criation and dissemination of Sporting Events_
+_Portal for criation and dissemination of Sporting Events_
 
 ## Features
 
+- Login
 - Register/Update/Remove/List User
 - Register/Update/Remove/List event
 - Link one or more users to an event
@@ -28,9 +29,10 @@ To run it, just have java 8 installed on the machine, and follow the steps below
 
 You can choose to run the script with the database's DDL in the script folder or uncomment the "spring.jpa.hibernate.ddl-auto=create-drop" configuration present in application.properties.
 
-## SWAGGER
+## Tests
+
+To run the tests, just access the test files in the package "src/test/java/" and run with "Junit Test".
+
+## Swagger
 
 To access the api documentation, just run the project and access '/portal-docs/swagger-ui/index.html'.
-
-
-
