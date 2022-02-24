@@ -18,6 +18,9 @@ public class AuthenticationService implements UserDetailsService{
 	@Autowired
 	private UserRepository repository;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<User> optional = repository.getByEmail(username);

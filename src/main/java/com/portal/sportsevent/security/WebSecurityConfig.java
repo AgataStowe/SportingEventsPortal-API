@@ -26,17 +26,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private AuthenticationService authenticationService;
 	
+	/**
+	 * Method responsible for getting an instance of TokenAuthenticationFilter
+	 * @return TokenAuthenticationFilter an instance of TokenAuthenticationFilter
+	 */
 	@Bean
 	public TokenAuthenticationFilter authenticationJwtTokenFilter() {
 		return new TokenAuthenticationFilter();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	//Configurations for authentication
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
     }
 	
+    /**
+	 * {@inheritDoc}
+	 */
     //Configuration for authorization
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
@@ -52,6 +62,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {

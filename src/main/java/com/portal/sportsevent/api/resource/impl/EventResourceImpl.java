@@ -35,6 +35,9 @@ public class EventResourceImpl implements EventResource{
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@Valid @RequestBody EventResponseDto eventDto) {
 		try {
@@ -49,35 +52,44 @@ public class EventResourceImpl implements EventResource{
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@PutMapping("/update/{id}")
 	public ResponseEntity<EventResponseDto> update(@Valid @PathVariable Long id, @RequestBody EventResponseDto eventDto){
 		Event event = service.update(id, toEvent(eventDto));
 		return ResponseEntity.ok(toEventDto(event));
 	}
 
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@GetMapping("/list")
 	public List<EventResponseDto> find() {
 		return toEventDto(service.find());
 	}
-	
-	@GetMapping("/teste")
-	public String finds() {
-		return "Hello Word";
-	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@GetMapping("/find/{id}")
 	public ResponseEntity<EventResponseDto> findById(@PathVariable("id") Long id) {
 		Optional<Event> event = service.findById(id);
 		return ResponseEntity.ok(toEventDto(event.get()));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@DeleteMapping("/remove/{id}")
 	public ResponseEntity<Void> remove(@PathVariable("id") Long id){
 		service.remove(id);
 		return ResponseEntity.noContent().build(); 
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@PostMapping("/link/user/{userId}")
 	public ResponseEntity<?> linkUser(@Valid @PathVariable Long userId, @RequestBody EventResponseDto eventDto) {
 		try {

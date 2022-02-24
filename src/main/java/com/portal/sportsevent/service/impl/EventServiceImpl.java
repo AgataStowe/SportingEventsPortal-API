@@ -23,37 +23,52 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Event save(Event event) {
 		return eventRepository.save(event);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Event update(Long id, Event event){
 		
 		if(!eventRepository.existsById(id)) 
-			throw new ResourceNotFound("Event not founded");
+			throw new ResourceNotFound("Event not found");
 		
 		event.setId(id);
 		
 		return eventRepository.save(event);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Event> find() {
 		return eventRepository.findActiveEvents();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Optional<Event> findById(Long id) {
 		Optional<Event> event = eventRepository.findById(id);
 		
 		if(!event.isPresent()) 
-			throw new ResourceNotFound("Event not founded");
+			throw new ResourceNotFound("Event not found");
 		
 		return event;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void remove(Long id){
 		Optional<Event> event = findById(id);
@@ -62,6 +77,9 @@ public class EventServiceImpl implements EventService{
 		eventRepository.save(event.get());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Event linkUser(Long idUser, Long eventId) {
 		Optional<User> user = userService.findById(idUser);
@@ -70,7 +88,7 @@ public class EventServiceImpl implements EventService{
 
 		
 		if(!event.isPresent())
-			throw new ResourceNotFound("Event not founded");
+			throw new ResourceNotFound("Event not found");
 
 		List<User> users = new ArrayList<>();
 		users.add(user.get());

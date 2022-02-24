@@ -28,6 +28,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	@Autowired
 	private MessageSource messageSource;
 	
+	/**
+	 * Method responsible for handling exception of ResourceNotFound
+	 * @param ex the exception
+	 * @param request the request
+	 * @return ResponseEntity<Object> custom answer
+	 */
 	@ExceptionHandler(ResourceNotFound.class)
 	public ResponseEntity<Object> handleNegocio(ResourceNotFound ex, WebRequest request) {
 		var status = HttpStatus.NOT_FOUND;
@@ -40,6 +46,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
 	}
 	
+	/**
+	 * Method responsible for handling exception of InformationAlreadyExists
+	 * @param ex the exception
+	 * @param request the request
+	 * @return ResponseEntity<Object> custom answer
+	 */
 	@ExceptionHandler(InformationAlreadyExists.class)
 	public ResponseEntity<Object> handleNegocio(InformationAlreadyExists ex, WebRequest request) {
 		var status = HttpStatus.UNPROCESSABLE_ENTITY;
@@ -52,6 +64,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
 	}
 		
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

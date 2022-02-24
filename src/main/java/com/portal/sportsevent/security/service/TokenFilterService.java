@@ -21,6 +21,11 @@ public class TokenFilterService {
 	@Value("${jwt.secret}")
 	private String jwtSecret;
 
+	/**
+	 * Method responsible for generate token for authentication
+	 * @param authentication the data for authentication
+	 * @return String a token
+	 */
 	public String generateToken(Authentication authentication) {
 
 		User usuario = (User) authentication.getPrincipal();
@@ -36,6 +41,11 @@ public class TokenFilterService {
 				.compact();
 	}
 
+	/**
+	 * Method responsible for validate token
+	 * @param token the token
+	 * @return boolean true if valid false otherwise
+	 */
 	public boolean isTokenValid(String token) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
@@ -45,6 +55,11 @@ public class TokenFilterService {
 		}
 	}
 
+	/**
+	 * Method responsible for getting id token
+	 * @param token the token
+	 * @return Integer id token
+	 */
 	public Integer getTokenId(String token) {
 		Claims body = Jwts.parser()
 				.setSigningKey(jwtSecret)

@@ -36,6 +36,9 @@ public class UserResourceImpl implements UserResource{
 	@Autowired
 	private ModelMapper modelMapper;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@PostMapping("/save")
 	@Override
 	public ResponseEntity<?> save(@Valid @RequestBody UserRequestDto userDto) {
@@ -51,23 +54,35 @@ public class UserResourceImpl implements UserResource{
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@PutMapping("/update/{id}")
 	public ResponseEntity<UserResponseDto> update(@Valid @PathVariable Long id, @RequestBody UserRequestDto userDto) {
 		User user = service.update(id, toUser(userDto));
 		return ResponseEntity.ok(toUserDto(user));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@GetMapping("/list")
 	public List<UserResponseDto> find() {
 		return  toUserDto(service.find());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@GetMapping("/find/{id}")
 	public ResponseEntity<UserResponseDto> findById(@PathVariable("id") Long id) {
 		Optional<User> user = service.findById(id);
 		return ResponseEntity.ok(toUserDto(user.get()));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@DeleteMapping("/remove/{id}")
 	public ResponseEntity<Void> remove(@PathVariable("id") Long id) {
 		service.remove(id);

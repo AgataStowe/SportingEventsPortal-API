@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepository userRepository;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User save(User user) {
 		validUser(user);
@@ -30,10 +33,13 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(user);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User update(Long id, User user) {
 		
-		if(!userRepository.existsById(id)) throw new ResourceNotFound("User not founded");
+		if(!userRepository.existsById(id)) throw new ResourceNotFound("User not found");
 		
 		user.setId(id);
 		
@@ -42,6 +48,9 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(user);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<User> find() {
 		return userRepository.findActiveUsers();
@@ -51,11 +60,14 @@ public class UserServiceImpl implements UserService{
 	public Optional<User> findById(Long id) {
 		Optional<User> user = userRepository.findById(id);
 		
-		if(!user.isPresent()) throw new ResourceNotFound("User not founded");
+		if(!user.isPresent()) throw new ResourceNotFound("User not found");
 
 		return user;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void remove(Long id) {
 		

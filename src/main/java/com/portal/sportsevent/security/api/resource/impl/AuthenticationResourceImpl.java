@@ -26,6 +26,9 @@ public class AuthenticationResourceImpl implements AuthenticationResource{
 	@Autowired
 	private TokenFilterService tokenService;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@PostMapping
 	public ResponseEntity<TokenDto> auth(@RequestBody @Validated LoginDto loginDto) {
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginDto.getUser(), loginDto.getPass());

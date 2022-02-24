@@ -25,6 +25,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter{
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -40,6 +43,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter{
 		filterChain.doFilter(request, response);	
 	}
 	
+	/**
+	 * Method responsible for authentication
+	 * @param tokenFromHeader a token from header
+	 * @param request the request
+	 */
 	private void authenticate(String tokenFromHeader, HttpServletRequest request) {
 		Integer id = tokenService.getTokenId(tokenFromHeader);
 		
@@ -49,13 +57,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter{
 			
 			User user = optionalUser.get();
 			
-//			request.setAttribute("user", user);
-			
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, null);
 			SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 		}
 	}
 
+	/**
+	 * Method responsible for getting token from header of request
+	 * @param request the request
+	 * @return String the token
+	 */
 	private String getTokenFromHeader(HttpServletRequest request) {
 		String token = request.getHeader("Authorization");
 		if(token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
