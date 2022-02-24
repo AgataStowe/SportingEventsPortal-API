@@ -12,7 +12,7 @@ GRANT ALL ON SCHEMA event TO postgres;
 -------------------------------------------EVENT.ADDRESS---------------------------------------------
 CREATE TABLE IF NOT EXISTS event.address
 (
-    id_address bigint NOT NULL,
+    id_address SERIAL,
     zip_code character varying(255) COLLATE pg_catalog."default" NOT NULL,
     city character varying(255) COLLATE pg_catalog."default" NOT NULL,
     neighborhood character varying(255) COLLATE pg_catalog."default" NOT NULL,
@@ -44,14 +44,14 @@ ALTER TABLE IF EXISTS event.address
 -------------------------------------------EVENT.EVENTS---------------------------------------------
 CREATE TABLE IF NOT EXISTS event.events
 (
-    id_event bigint NOT NULL,
+    id_event SERIAL,
     active boolean DEFAULT true,
     creation_date date DEFAULT CURRENT_DATE,
     date_time timestamp without time zone NOT NULL,
     description character varying(255) COLLATE pg_catalog."default",
     id_address bigint,
     CONSTRAINT pk_events PRIMARY KEY (id_event),
-    CONSTRAINT pk_events_add FOREIGN KEY (id_address)
+    CONSTRAINT fk_events_add FOREIGN KEY (id_address)
         REFERENCES event.address (id_address) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
@@ -77,7 +77,7 @@ ALTER TABLE IF EXISTS event.events
 -------------------------------------------EVENT.USERS---------------------------------------------
 CREATE TABLE IF NOT EXISTS event.users
 (
-    id_user bigint NOT NULL,
+    id_user SERIAL,
     active boolean DEFAULT true,
     creation_date date DEFAULT CURRENT_DATE,
     email character varying(255) COLLATE pg_catalog."default" NOT NULL,
